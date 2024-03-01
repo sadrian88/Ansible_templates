@@ -1,12 +1,10 @@
 ---
 - hosts: all
-
   become: true
 
   tasks:
-    - name: Patch 
-      yum: 
-        update: yes
-        upgrade: yes
+    - name: Update and upgrade all packages
+      yum:
+        name: "*"
+        state: latest
         update_cache: yes
-
