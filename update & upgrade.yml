@@ -1,0 +1,12 @@
+---
+- hosts: all
+
+  become: true
+
+  tasks:
+    - name: Patch 
+      yum: 
+        update: yes
+        upgrade: yes
+        update_cache: yes
+
