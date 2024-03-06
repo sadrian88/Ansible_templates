@@ -10,3 +10,4 @@
 
     - name: Reboot the systems
       command: /sbin/shutdown -r now
+      changed_when: true
