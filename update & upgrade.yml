@@ -7,4 +7,6 @@
       yum:
         name: "*"
         state: latest
-        
+
+    - name: Reboot the systems
+      command: /sbin/shutdown -r now
