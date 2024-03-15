@@ -22,7 +22,7 @@ pipeline {
             steps {
                 script {
                     // Use kubectl or Kubernetes CLI to deploy the application
-                    sh "sed -i 's/HOSTNAME_PLACEHOLDER/$HOSTNAME/' deployment.yaml"
+                    sh "sed -i 's/192.168.100.32/$HOSTNAME/' deployment.yaml"
                     sh 'kubectl apply -f deployment.yaml'
                     // Additional deployment steps if needed
                 }
