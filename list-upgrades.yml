@@ -10,7 +10,7 @@
         update_cache: yes
 
     - name: List upgradable packages
-      command: apt list --upgradable
+      shell: apt list --upgradable 2>/dev/null | grep -v "Listing..."
       register: upgrade_list
       changed_when: false
 
