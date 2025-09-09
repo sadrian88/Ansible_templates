@@ -1,6 +1,8 @@
 ---
 - hosts: all
   become: true
+  vars:
+    ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
 
   tasks:
     - name: Update apt cache
@@ -14,5 +16,5 @@
 
     - name: Show packages that can be upgraded
       debug:
-        var: upgrade_list.stdout_lines
+        msg: "{{ upgrade_list.stdout_lines }}"
 
