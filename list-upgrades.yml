@@ -1,0 +1,18 @@
+---
+- hosts: all
+  become: true
+
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: List upgradable packages
+      command: apt list --upgradable
+      register: upgrade_list
+      changed_when: false
+
+    - name: Show packages that can be upgraded
+      debug:
+        var: upgrade_list.stdout_lines
+

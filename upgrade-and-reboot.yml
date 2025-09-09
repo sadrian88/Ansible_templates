@@ -1,0 +1,22 @@
+---
+- hosts: all
+  become: true
+
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Perform full-upgrade
+      apt:
+        upgrade: dist
+
+    - name: Reboot after upgrade
+      reboot:
+        msg: "Reboot initiated by Ansible after full-upgrade"
+        connect_timeout: 30
+        reboot_timeout: 900
+        pre_reboot_delay: 5
+        post_reboot_delay: 60
+        test_command: uptime
+
