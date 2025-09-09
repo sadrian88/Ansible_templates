@@ -3,18 +3,30 @@
   become: true
   vars:
     ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
-
   tasks:
     - name: Update apt cache
       apt:
         update_cache: yes
-
-    - name: List upgradable packages
-      shell: apt list --upgradable 2>/dev/null | grep -v "Listing..."
+    
+    - name: Check if apt command works
+      command: which apt
+      register: apt_check
+      
+    - name: Debug apt check
+      debug:
+        var: apt_check
+    
+    - name: List upgradable packages (with error handling)
+      shell: apt list --upgradable 2>&1 | head -20
       register: upgrade_list
       changed_when: false
-
+      ignore_errors: yes
+    
+    - name: Debug full upgrade_list output
+      debug:
+        var: upgrade_list
+    
     - name: Show packages that can be upgraded
       debug:
-        msg: "{{ upgrade_list.stdout_lines }}"
-
+        msg: "{{ upgrade_list.stdout_lines | default(['No output']) }}"
+      when: upgrade_list is defined and upgrade_list.stdout is defined
